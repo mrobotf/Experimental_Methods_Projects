@@ -1,0 +1,271 @@
+# EXPERIMENT 1: DETAILED EXPLANATION
+# Connectedness Affects Dot Numerosity Judgment
+
+## OVERVIEW
+
+**Research Question:** Does connecting dots with lines affect how many dots we perceive?
+
+**Hypothesis:** When dots are connected by lines, they form unified perceptual objects, 
+leading to underestimation of the total number of dots.
+
+**Prediction:** More connections → Greater underestimation
+
+---
+
+## EXPERIMENTAL DESIGN
+
+### Comparison Task
+Participants view TWO dot patterns simultaneously (200ms flash) and decide which has more dots.
+
+### Two Types of Patterns
+
+**REFERENCE Pattern (Baseline):**
+- Always 12 dots
+- 4 freely hanging lines (not touching dots)
+- 0 connections
+- Stays constant throughout experiment
+
+**TEST Pattern (Manipulated):**
+- Variable number of dots: 9, 10, 11, 12, 13, 14, 15
+- 4 lines total
+- Variable connections: 0, 1, or 2 pairs of dots connected
+- Changes across trials
+
+### Key Manipulation: CONNECTEDNESS
+
+The critical manipulation is how many pairs of dots are connected by lines:
+
+**Zero-connected:**
+- All 4 lines hang freely (don't touch any dots)
+- Baseline condition - like the reference pattern
+
+**One-connected:**
+- 1 line connects two dots
+- 3 lines hang freely
+- Still 4 total lines
+
+**Two-connected:**
+- 2 lines each connect two dots (4 dots involved)
+- 2 lines hang freely
+- Still 4 total lines
+
+**Important:** Total number of lines is ALWAYS 4 in all patterns. This controls for 
+visual clutter - any effect must be due to CONNECTION, not just presence of lines.
+
+---
+
+## CONDITIONS
+
+**Independent Variables:**
+1. Connectedness level: 0, 1, or 2 pairs connected
+2. Number of dots in test: 9, 10, 11, 12, 13, 14, 15
+
+**Total Conditions:** 3 × 7 = 21 conditions
+
+**Repetitions:** 8 different spatial configurations per condition
+
+**Total unique test patterns:** 21 conditions × 8 reps = 168 patterns
+
+---
+
+## TRIAL STRUCTURE
+
+Each trial follows this sequence:
+
+1. **Fixation cross** (green, center screen)
+   - Participant maintains fixation
+
+2. **Random delay** (500-1000ms)
+   - Prevents anticipation
+
+3. **STIMULUS PRESENTATION** (200ms) ← CRITICAL
+   - Both patterns flash SIMULTANEOUSLY
+   - One on left, one on right side of screen
+   - Too brief to count dots one-by-one
+   - Left/right position randomized
+
+4. **Blank screen**
+   - Remains until response
+
+5. **Response**
+   - Press LEFT arrow if left has more dots
+   - Press RIGHT arrow if right has more dots
+   - NO TIME LIMIT
+   - NO FEEDBACK given
+
+---
+
+## SESSION STRUCTURE
+
+### Practice Phase
+- 30 practice trials
+- Easy discrimination: 9 vs 12 dots
+- Familiarizes participants with task
+
+### Main Experiment
+**5 Blocks** of trials, each containing:
+- **First half:** 168 trials
+  - All 21 conditions × 8 repetitions
+  - Completely randomized order
+  - Test/reference positions randomized
+
+- **Second half:** 168 trials
+  - Exact same trials as first half
+  - BUT positions reversed (left ↔ right)
+  - This counterbalances any spatial biases
+
+**Total per block:** 336 trials  
+**Total experiment:** 5 blocks × 336 = 1,680 trials per participant
+
+**Duration:** Approximately 1 hour
+
+**Rest periods:** Brief breaks between blocks
+
+---
+
+## PARTICIPANTS
+
+- 4 university students
+- Paid participants
+- All naive to the purpose of the experiment
+- No prior participation in similar experiments
+
+---
+
+## DATA COLLECTION
+
+For each trial, record:
+- Number of dots in test pattern
+- Connectedness level (0, 1, or 2)
+- Number of dots in reference (always 12)
+- Which side participant chose (left or right)
+- Response time
+- Whether test was on left or right
+- Block number
+- Trial number
+
+---
+
+## DATA ANALYSIS
+
+### Step 1: Calculate Proportions
+For each condition (e.g., "13 dots, one-connected"):
+- Count how many times participant said "test has more" 
+- Divide by total trials for that condition (80 trials)
+- This gives proportion "test judged as more"
+
+### Step 2: Create Psychometric Functions
+For each connectedness level (0, 1, 2):
+- Plot proportion "test has more" against number of test dots
+- X-axis: Number of dots in test (9-15)
+- Y-axis: Proportion of "test has more" responses (0-1)
+
+### Step 3: Fit Curves
+Fit a cumulative Gaussian function to the data points:
+- This creates a smooth S-shaped curve
+- Uses maximum likelihood method (Psignifit toolbox)
+
+### Step 4: Extract PSE
+**PSE = Point of Subjective Equality**
+- The number of test dots where participant says "left has more" and 
+  "right has more" equally often (50% threshold)
+- Represents the number of test dots that LOOKS equal to 12 reference dots
+
+---
+
+## EXPECTED RESULTS
+
+### Predicted Pattern
+
+**Zero-connected condition:**
+- PSE ≈ 11.9 dots
+- Nearly accurate perception
+
+**One-connected condition:**
+- PSE ≈ 12.6 dots
+- Slight rightward shift
+
+**Two-connected condition:**
+- PSE ≈ 13.5 dots
+- Large rightward shift
+
+### Interpretation
+
+**Rightward shift in psychometric curve = Higher PSE = Underestimation**
+
+If PSE = 13.5 for two-connected patterns, this means:
+- A pattern with 13.5 connected dots LOOKS like it has only 12 dots
+- Participant needs 13.5 actual dots to perceive "equal to 12"
+- This is ~1.5 dots underestimation
+
+**Key Finding:**
+The more connections, the higher the PSE, the greater the underestimation.
+
+This supports the hypothesis that connected dots are perceptually grouped 
+into unified objects, reducing the perceived number of distinct items.
+
+---
+
+## WHY THIS MATTERS
+
+### Theoretical Implications
+
+1. **Perceptual Grouping:** Connectedness causes dots to be grouped together
+
+2. **Object Formation:** Connected elements form single perceptual units
+
+3. **Numerosity Processing:** We count OBJECTS, not individual elements
+
+4. **Configural Processing:** Visual system processes configurations, 
+   not just raw features
+
+### Key Insight
+
+This experiment shows that numerosity perception is not just about 
+counting individual items - it's fundamentally affected by how those 
+items are organized and connected in space.
+
+The visual system automatically groups connected elements into unified 
+objects BEFORE numerosity estimation occurs.
+
+---
+
+## CONTROL FEATURES
+
+What makes this a good experiment:
+
+1. **Brief presentation (200ms):** Prevents counting
+2. **Constant total lines (4):** Controls for visual clutter
+3. **Large sample (80 trials/condition):** Good statistical power
+4. **Counterbalanced positions:** Eliminates spatial biases
+5. **Multiple repetitions:** Different spatial configurations
+6. **No feedback:** Prevents learning effects
+7. **Reference stays constant:** Clean comparison
+
+---
+
+## IMPORTANT NOTES FOR REPLICATION
+
+### Critical Parameters
+- Presentation duration MUST be exactly 200ms
+- Dot spacing minimum 42 pixels (prevents crowding)
+- Lines must not cross each other
+- Lines >12 pixels from dots (except connecting lines)
+- Always 4 total lines per pattern
+
+### Timing Precision
+The 200ms presentation is critical - if too long, participants might count. 
+If too short, they might not perceive the patterns clearly. Use proper 
+timing validation in Expyriment.
+
+### Stimulus Generation
+Pre-generate all stimuli before the experiment starts. Generation with 
+all constraints can take time and shouldn't happen during the experiment.
+
+### Participant Instructions
+Make clear that:
+- They should keep eyes on center fixation cross
+- They judge which side has MORE dots (not estimate exact numbers)
+- There's no time limit for response
+- No feedback will be given
+- Accuracy is more important than speed

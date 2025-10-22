@@ -1,0 +1,84 @@
+# ============================================================================
+# EXPERIMENT 1 - SIMPLIFIED PSEUDOCODE
+# Connectedness Affects Dot Numerosity Judgment
+# ============================================================================
+
+# ----------------------------------------------------------------------------
+# 1. INITIALIZATION
+# ----------------------------------------------------------------------------
+- Import Expyriment
+- Set display: 1024x768, gray background
+- Define constants:
+  * Pattern size: 160x240 pixels
+  * Dots: 12 pixels diameter, black
+  * Lines: 2 pixels width, 30-60 pixels length, black
+  * Timing: 200ms presentation
+  * Total lines: always 4 per pattern
+
+# ----------------------------------------------------------------------------
+# 2. STIMULUS GENERATION (Before experiment starts)
+# ----------------------------------------------------------------------------
+GENERATE 168 REFERENCE patterns:
+  - Each has: 12 dots, 4 free lines, 0 connections
+  - Random dot positions (min 42px apart)
+  - Random line positions (don't cross, don't touch dots)
+
+GENERATE 168 TEST patterns:
+  - 21 conditions (3 connectedness × 7 dot numbers)
+  - 8 patterns per condition
+  - Dot numbers: 9, 10, 11, 12, 13, 14, 15
+  - Connectedness: 0, 1, or 2 pairs connected
+  - Start with free lines, then replace some with connecting lines
+
+# ----------------------------------------------------------------------------
+# 3. TRIAL STRUCTURE
+# ----------------------------------------------------------------------------
+FOR each trial:
+  1. Show fixation cross (center)
+  2. Wait random delay (500-1000ms)
+  3. Flash BOTH patterns simultaneously (200ms)
+     - One pattern left, one pattern right
+     - Randomize which side has test/reference
+  4. Blank screen
+  5. Wait for response (LEFT or RIGHT arrow key)
+  6. Record response (NO feedback given)
+
+# ----------------------------------------------------------------------------
+# 4. EXPERIMENT FLOW
+# ----------------------------------------------------------------------------
+PRACTICE:
+  - 30 trials with easy task (9 vs 12 dots)
+  - Give instructions
+
+MAIN EXPERIMENT:
+  FOR each of 5 blocks:
+    - 336 trials per block
+      * First 168: all conditions randomized
+      * Second 168: same but positions reversed
+    - Brief rest between blocks
+
+TOTAL: 1,680 trials per participant
+
+# ----------------------------------------------------------------------------
+# 5. DATA COLLECTION
+# ----------------------------------------------------------------------------
+FOR each trial, record:
+  - Number of dots in test
+  - Connectedness level (0, 1, 2)
+  - Which side participant chose (left/right)
+  - Response time
+  - Whether test was on left or right
+
+# ----------------------------------------------------------------------------
+# 6. ANALYSIS (After experiment)
+# ----------------------------------------------------------------------------
+FOR each connectedness level (0, 1, 2):
+  - Calculate proportion "test has more" for each dot number
+  - Fit psychometric curve (cumulative Gaussian)
+  - Extract PSE (Point of Subjective Equality)
+  - Plot results
+
+EXPECTED RESULT:
+  - PSE increases with more connections
+  - More connections = need more actual dots to look equal to 12
+  - This shows underestimation effect
