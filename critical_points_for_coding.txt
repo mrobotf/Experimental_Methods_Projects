@@ -1,0 +1,46 @@
+1) Dots generation
+    - cant overlap each other
+    - min 42px apart
+    - Dots must be ≥10 pixels from boundaries
+
+
+2) Lines generation
+    - cant cross each other
+    - cant touch the dots (Lines must be ≥12 pixels from any dot (except when connecting))
+    - lines must not extend beyond boundaries
+    - Connected lines must be 30-60 pixels long
+
+
+3) Patterns generation
+    - two random configuration (8 in total) cant be the same, must differ
+    - when generating 1-connected and 2-connected patterns we need to be sure
+      to re-use the exactly 0-connected configuration and we need to mirror it
+
+
+4) LINE-DOT geometry
+    - Drawing lines that connect exactly to dot centers while maintaining the 30-60 pixel length constraint
+    - Finding pairs of dots within the right distance range
+    - Ensuring the connecting line doesn't violate other constraints (like go on a dot, this seems complicate to implement)
+    - check if we actually implement the "replace free line with connecting line procedure"
+
+
+5) Timing
+    - Ensuring stimuli are pre-loaded to avoid rendering delays (as we saw in week3/4?)
+    - check monitor refersh and those things
+
+
+7) Counterbalancing
+    - use techniques explained in week 6
+
+
+
+In order to evaluate if everything works save data?
+DATA STRUCTURE
+    Which pattern was shown (reference vs. test)
+    Dot number in test
+    Connectedness level
+    Left/right position
+    Response
+    Response time
+    Block number
+    Trial number

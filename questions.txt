@@ -1,0 +1,16 @@
+
+1
+When we create the one-connected test patterns... should we modify the pre-existent
+0-connected one (like the article says) or we can generate new dots...
+In the first case we need to store the values and take them, in the second maybe we
+may not save them.
+
+Paper ref
+by modifying
+each zero-connected pattern in such a way that one of the lines was
+randomly selected, erased, and replaced by another line drawn to connect
+two randomly selected dots.
+
+
+
+2
