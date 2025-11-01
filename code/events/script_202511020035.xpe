@@ -1,0 +1,34 @@
+#Expyriment 1.0.0 (Python 3.10.14), .xpe-file, coding: cp1252
+#date: Sun Nov 02 2025 00:35:22
+#sha1: 2ed356
+#modules: 
+#display: size=(800, 600), window_mode=False, opengl=2
+#os: uname_result(system='Windows', node='LAPTOP-909EKFKU', release='10', version='10.0.26100', machine='AMD64')
+Time,Type,Event,Value,Detail,Detail2
+3876,stdout,received,'Generating patterns...'
+3876,stdout,received,'Generating 168 reference patterns...'
+3890,stdout,received,'  Generated 20/168 reference patterns'
+3908,stdout,received,'  Generated 40/168 reference patterns'
+3929,stdout,received,'  Generated 60/168 reference patterns'
+3943,stdout,received,'  Generated 80/168 reference patterns'
+3955,stdout,received,'  Generated 100/168 reference patterns'
+3968,stdout,received,'  Generated 120/168 reference patterns'
+3984,stdout,received,'  Generated 140/168 reference patterns'
+3997,stdout,received,'  Generated 160/168 reference patterns'
+4003,stdout,received,'Generating 168 test patterns...'
+4010,stdout,received,'  Generated 20/168 test patterns'
+4029,stdout,received,'  Generated 40/168 test patterns'
+4122,stdout,received,'  Generated 60/168 test patterns'
+4136,stdout,received,'  Generated 80/168 test patterns'
+4234,stderr,received,'Traceback (most recent call last):'
+4234,stderr,received,'  File "C:\\Users\\USER\\OneDrive\\Desktop\\GITHUB\\Experimental_Methods_Projects\\code\\script.py", line 648, in <module>'
+4234,stderr,received,'    run_experiment()'
+4234,stderr,received,'  File "C:\\Users\\USER\\OneDrive\\Desktop\\GITHUB\\Experimental_Methods_Projects\\code\\script.py", line 525, in run_experiment'
+4234,stderr,received,'    reference_patterns, test_patterns = generate_all_patterns()'
+4235,stderr,received,'  File "C:\\Users\\USER\\OneDrive\\Desktop\\GITHUB\\Experimental_Methods_Projects\\code\\script.py", line 308, in generate_all_patterns'
+4235,stderr,received,'    pattern.generate()'
+4235,stderr,received,'  File "C:\\Users\\USER\\OneDrive\\Desktop\\GITHUB\\Experimental_Methods_Projects\\code\\script.py", line 84, in generate'
+4235,stderr,received,'    self.dots = self._generate_dots()'
+4235,stderr,received,'  File "C:\\Users\\USER\\OneDrive\\Desktop\\GITHUB\\Experimental_Methods_Projects\\code\\script.py", line 120, in _generate_dots'
+4235,stderr,received,'    raise RuntimeError(f"Could not place dot {len(dots) + 1}/{self.num_dots}")'
+4235,stderr,received,'RuntimeError: Could not place dot 14/14'

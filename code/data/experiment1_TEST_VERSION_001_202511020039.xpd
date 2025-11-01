@@ -1,0 +1,25 @@
+#Expyriment 1.0.0 (Python 3.10.14), .xpd-file, coding: cp1252
+#date: Sun Nov 02 2025 00:39:58
+#--EXPERIMENT INFO
+#e mainfile: experiment1_TEST_VERSION.py
+#e sha1: 3bfc1b
+#e modules: 
+#e Experiment: Connectedness_Test
+#e no between subject factors
+#--SUBJECT INFO
+#s id: 1
+subject_id,
+1,0,0,9,0,True,False,False,910
+1,0,0,9,0,True,False,False,658
+1,0,0,9,0,True,True,True,353
+1,0,0,9,0,False,False,True,310
+1,0,0,9,0,True,True,True,374
+1,1,1,15,0,False,False,True,843
+1,1,1,12,2,False,False,True,216
+1,1,1,9,0,False,False,True,153
+1,1,1,9,2,True,False,False,99
+1,1,1,12,2,False,False,True,72
+1,1,1,12,0,False,True,False,16
+1,1,1,9,0,True,True,True,219
+1,1,1,9,2,False,False,True,428
+1,1,1,15,2,True,False,False,1285

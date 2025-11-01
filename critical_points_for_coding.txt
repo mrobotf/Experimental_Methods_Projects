@@ -1,3 +1,4 @@
+
 1) Dots generation
     - cant overlap each other
     - min 42px apart

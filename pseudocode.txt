@@ -4,7 +4,7 @@
 # ============================================================================
 
 # ----------------------------------------------------------------------------
-# 1. INITIALIZATION
+# 1. INITIALIZATION (Before experiment starts)
 # ----------------------------------------------------------------------------
 - Import Expyriment
 - Set display: 1024x768, BLACK background
@@ -20,15 +20,15 @@
 # ----------------------------------------------------------------------------
 GENERATE 168 REFERENCE patterns:
   - Each has: 12 dots, 4 free lines, 0 connections
-  - Random dot positions (min 42px apart, cant overlapp or be to close to each others)
-  - Random line positions (don't cross, don't touch dots)
+  - Random dot positions
+  - Random line positions
 
 GENERATE 168 TEST patterns:
-  - 21 conditions (3 connectedness × 7 dot numbers)
+  - 3 connectedness (connectedness: 0, 1, or 2 pairs connected)
+  - 7 dot numbers conditions (Dot numbers: 9, 10, 11, 12, 13, 14, 15)
   - 8 patterns per condition
-  - 56 patterns (7x8) for connectedness0, 56 for...1, 56 for...2
-  - Dot numbers: 9, 10, 11, 12, 13, 14, 15
-  - Connectedness: 0, 1, or 2 pairs connected
+  - 56 patterns (7x8)
+  - 168 final pattern (for each connectedness 56 patterns)
   - Start with free lines, then replace some with connecting lines
 
 # ----------------------------------------------------------------------------
