@@ -22,10 +22,10 @@
 ---
 ### 2. & 3. The Effect of Dot Size
 
-| Task Type | Finding | Explanation | Source |
+| Task Type | Finding | Source |
 | :--- | :--- | :--- | :--- |
-| **Discrimination** (i.e. comparisons) | Dot size **doesn't affect discrimination**. Your ability to compare which set has more does not depend on dot size. | | (Allik et al., 1991)  |
-| **Estimation** | Dot size matters. Larger dots lead to underestimation of the total number. | Larger dots make the display look “fuller,” causing the brain to think there are **fewer separate items**. | (Ginsburg & Nicholls, 1988) |
+| **Discrimination** (i.e. comparisons) | Dot size **doesn't affect discrimination**. Your ability to compare which set has more does not depend on dot size. | (Allik et al., 1991)  |
+| **Estimation** | Dot size matters. Larger dots lead to underestimation of the total number. | (Ginsburg & Nicholls, 1988) |
 
 ---
 ### 4. Two Sources for Errors in Discrimination
@@ -72,9 +72,11 @@ How connecting dots affects numerosity perception.
 
 #### The Finding: Connection Causes Underestimation
 
-* When dots were connected to form the shape of a closed polygon, they appeared much less numerous.
-* Merely connecting dots to form polygons will result in **underestimation**.
+The estimation can be strongly affected by the presence of additional structural information
+
+* When dots were connected to form the shape of a closed polygon, people tend to underestimate.
 * Forming an enclosed figure is not a necessary condition for this underestimation.
+* Just by connecting dots to form polygons will result in underestimation.
 
 **Problems:** a method that is used **without restriction** to their viewing time, which led to participants performed patch-by-patch comparisons, instead of forming **an instantaneous impression** of dot numerosity (Koesling, Pomplun, & Ritter, 1998)
 - This raised questions about whether the judgment was truly perceptual or cognitive. 
