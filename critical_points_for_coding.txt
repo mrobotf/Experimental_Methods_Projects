@@ -9,7 +9,7 @@
     - cant cross each other
     - cant touch the dots (Lines must be ≥12 pixels from any dot (except when connecting))
     - lines must not extend beyond boundaries
-    - Connected lines must be 30-60 pixels long
+    - Connected lines mu    st be 30-60 pixels long
 
 
 3) Patterns generation
