@@ -379,6 +379,7 @@ def run_trial(exp, trial_info, fixation_cross):
     # Plot canvases onto display
     left_canvas.plot(display)
     right_canvas.plot(display)
+    fixation_cross.plot(display)
 
     # Present stimulus
     display.present()
@@ -488,3 +489,4 @@ Press SPACE to begin practice."""
 
 if __name__ == "__main__":
     run_experiment()
+
