@@ -439,25 +439,28 @@ def generate_all_patterns():
             max_retries = 10
             for retry in range(max_retries):
                 try:
-                    # Generate base pattern with 0 connections
+                    # Generate base pattern with 0 connections (don't add to list yet!)
                     base_pattern = DotPattern(num_dots, connectedness=0, pattern_id=pattern_id)
                     base_pattern.generate()
-                    test_patterns_by_connectivity[0].append(base_pattern)
 
                     # Copy dots for 1-connection version
                     base_dots = base_pattern.copy_dots()
                     pattern_1conn = DotPattern(num_dots, connectedness=1, pattern_id=pattern_id, base_dots=base_dots)
                     pattern_1conn.generate()
-                    test_patterns_by_connectivity[1].append(pattern_1conn)
 
                     # Copy dots for 2-connection version
                     pattern_2conn = DotPattern(num_dots, connectedness=2, pattern_id=pattern_id, base_dots=base_dots)
                     pattern_2conn.generate()
+
+                    # ONLY add to lists if ALL THREE succeeded
+                    test_patterns_by_connectivity[0].append(base_pattern)
+                    test_patterns_by_connectivity[1].append(pattern_1conn)
                     test_patterns_by_connectivity[2].append(pattern_2conn)
 
                     pattern_id += 1
                     break
                 except RuntimeError:
+                    # All three patterns discarded, will generate NEW dots on retry
                     if retry == max_retries - 1:
                         print(f"  Failed to generate pattern: {num_dots} dots")
                         raise

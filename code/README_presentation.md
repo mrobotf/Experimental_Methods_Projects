@@ -221,48 +221,6 @@ The script will:
 
 ---
 
-## Error Handling
-
-### Pattern Generation Failures
-If a pattern cannot be generated (e.g., not enough space for lines):
-- Retries up to 10 times with different random configurations
-- If still failing, raises `RuntimeError` with descriptive message
-
-### Common Failure Reasons
-1. **Dot placement:** Not enough space for required number of dots
-2. **Connecting lines:** No valid dot pairs within 30-60px distance
-3. **Free lines:** Too many constraints make valid placement impossible
-
----
-
-## Performance Notes
-
-- Pattern generation is the slowest step (2-5 seconds for full set)
-- Most time spent checking line constraints
-- Increasing `max_attempts` improves success rate but slows generation
-- Loading screen shown during generation to prevent user confusion
-
----
-
-## Troubleshooting
-
-**Q: Lines still appear to cross**  
-A: Check `MIN_LINE_SEPARATION` value. Increase from 8 to 10-12 for stricter separation.
-
-**Q: Pattern generation fails frequently**  
-A: The pattern space may be too constrained. Try:
-- Reducing `MIN_DOT_DISTANCE`
-- Reducing `MIN_LINE_DOT_DISTANCE`
-- Increasing pattern size
-
-**Q: Patterns look cluttered**  
-A: Increase spacing constraints:
-- `MIN_DOT_DISTANCE` (more dot spacing)
-- `MIN_LINE_SEPARATION` (more line spacing)
-- `MIN_DOT_BOUNDARY_DISTANCE` (more edge padding)
-
----
-
 ## Code Architecture
 
 ```
@@ -293,12 +251,3 @@ Pattern Generation
 ```
 
 ---
-
-## Scientific Validity
-
-This implementation ensures:
-1. **Controlled comparisons:** Same dots across connectedness levels
-2. **Clean stimuli:** No overlapping or ambiguous lines
-3. **Consistent presentation:** Precise timing (200ms exposure)
-4. **Counterbalancing:** Random left/right placement
-5. **Ecological validity:** Pattern constraints match paper specifications

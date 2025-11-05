@@ -10,7 +10,3 @@ by modifying
 each zero-connected pattern in such a way that one of the lines was
 randomly selected, erased, and replaced by another line drawn to connect
 two randomly selected dots.
-
-
-
-2
