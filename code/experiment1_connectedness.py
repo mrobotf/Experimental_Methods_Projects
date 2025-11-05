@@ -14,6 +14,8 @@ import random
 import math
 import copy
 from datetime import datetime
+import json
+import os
 
 # ============================================================================
 # CONFIGURATION & CONSTANTS
@@ -89,6 +91,17 @@ class DotPattern:
     def copy_dots(self):
         """Return a copy of the dot configuration"""
         return copy.deepcopy(self.dots)
+
+    def to_dict(self):
+        """Convert pattern to dictionary for JSON storage"""
+        return {
+            'num_dots': self.num_dots,
+            'connectedness': self.connectedness,
+            'pattern_id': self.pattern_id,
+            'dots': self.dots,
+            'lines': [{'start': list(start), 'end': list(end)} for start, end in self.lines],
+            'connected_pairs': self.connected_pairs
+        }
 
     def _generate_dots(self):
         """Generate random dot positions with constraints"""
@@ -292,6 +305,96 @@ class DotPattern:
 
 
 # ============================================================================
+# DATA LOGGING CLASS
+# ============================================================================
+
+class DetailedDataLogger:
+    """Handles detailed logging of stimulus and response data"""
+
+    def __init__(self, participant_id, experiment_name="Connectedness_Numerosity_Exp1"):
+        self.participant_id = participant_id
+        self.experiment_name = experiment_name
+        self.timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+
+        # Use current working directory + data folder (portable across PCs)
+        self.data_dir = "data"
+
+        # Create data directory if it doesn't exist
+        if not os.path.exists(self.data_dir):
+            os.makedirs(self.data_dir)
+
+        # Create filename with participant ID and timestamp
+        self.filename = os.path.join(self.data_dir, f"{experiment_name}_P{participant_id}_{self.timestamp}.json")
+
+        # Print where data will be saved
+        print(f"JSON data will be saved to: {self.filename}")
+
+        # Initialize data structure
+        self.data = {
+            'participant_id': participant_id,
+            'experiment_name': experiment_name,
+            'timestamp': self.timestamp,
+            'start_time': datetime.now().isoformat(),
+            'trials': []
+        }
+
+    def log_trial(self, trial_number, block, half, ref_pattern, test_pattern,
+                  test_on_left, response_key, rt):
+        """
+        Log detailed information about a trial
+        """
+
+        chose_left = (response_key == expyriment.misc.constants.K_LEFT)
+        chose_test = (chose_left == test_on_left)
+
+        trial_data = {
+            'trial_number': trial_number,
+            'block': block,
+            'half': half,
+
+            # Reference pattern info
+            'reference': {
+                'num_dots': ref_pattern.num_dots,
+                'connectedness': ref_pattern.connectedness,
+                'position': 'left' if not test_on_left else 'right'
+            },
+
+            # Test pattern info (DETAILED)
+            'test': {
+                'num_dots': test_pattern.num_dots,
+                'connectedness': test_pattern.connectedness,
+                'pattern_id': test_pattern.pattern_id,
+                'position': 'left' if test_on_left else 'right',
+                'dots': test_pattern.dots,
+                'lines': [{'start': list(start), 'end': list(end)}
+                         for start, end in test_pattern.lines],
+                'connected_pairs': test_pattern.connected_pairs
+            },
+
+            # Response info
+            'response': {
+                'key_pressed': 'left' if chose_left else 'right',
+                'chose_test': chose_test,
+                'chose_left': chose_left,
+                'rt_ms': rt,
+                'correct': chose_test if test_pattern.num_dots != ref_pattern.num_dots else None
+            }
+        }
+
+        self.data['trials'].append(trial_data)
+
+    def save(self):
+        """Save data to JSON file"""
+        self.data['end_time'] = datetime.now().isoformat()
+
+        with open(self.filename, 'w') as f:
+            json.dump(self.data, f, indent=2)
+
+        print(f"\n✓ Data saved to: {self.filename}")
+        return self.filename
+
+
+# ============================================================================
 # STIMULUS GENERATION - WITH PATTERN REUSE
 # ============================================================================
 
@@ -474,13 +577,14 @@ def create_practice_trials(reference_patterns):
 # TRIAL EXECUTION
 # ============================================================================
 
-def run_trial(exp, trial_info, fixation_cross):
+def run_trial(exp, trial_info, trial_number, fixation_cross, data_logger=None):
     """Execute a single trial"""
 
     iti = random.randint(MIN_ITI, MAX_ITI)
     exp.clock.wait(iti)
 
     fixation_cross.present()
+    exp.clock.wait(500)  # Show fixation for 500ms to focus attention
 
     ref_pattern = trial_info['reference_pattern']
     test_pattern = trial_info['test_pattern']
@@ -529,6 +633,19 @@ def run_trial(exp, trial_info, fixation_cross):
         rt
     ])
 
+    # Log to detailed JSON file if data_logger provided
+    if data_logger:
+        data_logger.log_trial(
+            trial_number=trial_number,
+            block=trial_info['block'],
+            half=trial_info['half'],
+            ref_pattern=ref_pattern,
+            test_pattern=test_pattern,
+            test_on_left=trial_info['test_on_left'],
+            response_key=key,
+            rt=rt
+        )
+
     return chose_test
 
 
@@ -570,6 +687,10 @@ Press SPACE to begin practice."""
 
     control.start(skip_ready_screen=True)
 
+    # Initialize detailed data logger AFTER control.start
+    participant_id = exp.subject
+    data_logger = DetailedDataLogger(participant_id, "Connectedness_Numerosity_Exp1")
+
     instructions.present()
     exp.keyboard.wait(expyriment.misc.constants.K_SPACE)
 
@@ -583,8 +704,10 @@ Press SPACE to begin practice."""
     practice_instruction.present()
     exp.keyboard.wait(expyriment.misc.constants.K_SPACE)
 
+    trial_counter = 1
     for i, trial in enumerate(practice_trials):
-        run_trial(exp, trial, fixation_cross)
+        run_trial(exp, trial, trial_counter, fixation_cross, data_logger)
+        trial_counter += 1
 
         if (i + 1) % 10 == 0:
             progress = stimuli.TextScreen(
@@ -613,7 +736,8 @@ Press SPACE to begin practice."""
         trials = create_trial_list(reference_patterns, test_patterns, block_num)
 
         for i, trial in enumerate(trials):
-            run_trial(exp, trial, fixation_cross)
+            run_trial(exp, trial, trial_counter, fixation_cross, data_logger)
+            trial_counter += 1
 
             if (i + 1) % 50 == 0:
                 progress = stimuli.TextScreen(
@@ -631,9 +755,12 @@ Press SPACE to begin practice."""
             break_screen.present()
             exp.keyboard.wait(expyriment.misc.constants.K_SPACE)
 
+    # Save detailed data
+    saved_file = data_logger.save()
+
     end_screen = stimuli.TextScreen(
         "Experiment Complete",
-        "Thank you for participating!\n\nPlease inform the experimenter."
+        f"Thank you for participating!\n\nData saved to:\n{os.path.basename(saved_file)}\n\nPlease inform the experimenter."
     )
     end_screen.present()
     exp.clock.wait(3000)
