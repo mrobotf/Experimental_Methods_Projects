@@ -51,8 +51,8 @@ CONNECTEDNESS_LEVELS = [0, 1, 2]  # 0, 1, or 2 pairs connected
 PATTERNS_PER_CONDITION = 8
 
 # Timing
-#STIMULUS_DURATION =200  # ms
-STIMULUS_DURATION =2000
+STIMULUS_DURATION =200  # ms
+#STIMULUS_DURATION =2000
 MIN_ITI = 500  # ms
 MAX_ITI = 1000  # ms
 
@@ -379,13 +379,12 @@ def create_pattern_stimulus(pattern, offset_x):
 # ============================================================================
 # EXPERIMENT STRUCTURE
 # ============================================================================
-#IEK
 def create_trial_list(reference_patterns, test_patterns, block_num):
     """
     Create trial list for one block
     
     Each block has 336 trials:
-    - First 168: randomized conditions and positions
+    - First 168: randomized conditions and balanced positions (50% left, 50% right per condition)
     - Second 168: same conditions, reversed positions
     """
     trials = []
@@ -395,10 +394,14 @@ def create_trial_list(reference_patterns, test_patterns, block_num):
     order = list(range(number_of_trials))
     random.shuffle(order) 
     
-    for i in order:
-        ref_pattern = reference_patterns[i]
-        test_pattern = test_patterns[i]
-        test_on_left = random.choice([True, False]) # Randomize which side gets test pattern
+    #84 on left, 84 on right
+    left_right = [True] * (number_of_trials // 2) + [False] * (number_of_trials // 2)
+    random.shuffle(left_right)
+    
+    for i, idx in enumerate(order):
+        ref_pattern = reference_patterns[idx]
+        test_pattern = test_patterns[idx]
+        test_on_left = left_right[i]
         
         #Storing information for the trial
         trial_info = {
@@ -412,25 +415,13 @@ def create_trial_list(reference_patterns, test_patterns, block_num):
         }
         trials.append(trial_info)
     
-    # Second half: same trials but reversed positions
+    # Create second half as mirrored positions
     for first_trial in trials[:number_of_trials]:
-        
-        # Make a copy of the first trial
         new_trial = first_trial.copy()
-        
-        # Mark it as the second half
         new_trial['half'] = 2
-        
-        # Reverse the position of the test pattern
-        if first_trial['test_on_left']:
-            new_trial['test_on_left'] = False
-        else:
-            new_trial['test_on_left'] = True
-
-        # Add the new trial to the list
+        new_trial['test_on_left'] = not first_trial['test_on_left']
         trials.append(new_trial)
-    
-    # Return all 336 trials
+
     return trials
 
 #Practice Trials
@@ -439,11 +430,10 @@ def create_practice_trials(reference_patterns):
     trials = []
     
     for i in range(NUM_PRACTICE_TRIALS):
-        test_pattern = DotPattern(TEST_DOT_NUMBERS = 9, connectedness=0)
-        test_pattern.generate()
-        
-        ref_pattern = DotPattern(TEST_DOT_NUMBERS = 12, connectedness=0)
-        
+        test_pattern = DotPattern(num_dots=9,  connectedness=0);  test_pattern.generate()
+        ref_pattern  = DotPattern(num_dots=12, connectedness=0);  ref_pattern.generate()
+
+
         test_on_left = random.choice([True, False])
         
         trial_info = {
@@ -467,10 +457,11 @@ def create_practice_trials(reference_patterns):
 #Preload and draw multiple stimuli on a single canvas.
 def draw(stims, canvas):
     canvas.clear_surface()  # clears previous drawings
-    canvas.preload()        # ensures smooth presentation timing
-
+           
     for stim in stims:
-        stim.plot(canvas)   
+        stim.plot(canvas)  
+        
+    canvas.preload() 
     canvas.present()
     
 #Execute a single trial  
@@ -506,6 +497,7 @@ def run_trial(exp, trial_info, fixation_cross):
     display = stimuli.BlankScreen(colour=BACKGROUND_COLOR)
     left_canvas.plot(display)
     right_canvas.plot(display)
+    fixation_cross.plot(display)
     
     # Present stimulus
     draw([left_canvas, right_canvas], display)
@@ -643,7 +635,6 @@ Press SPACE to begin practice."""
     # ========================================================================
     # END OF EXPERIMENT
     # ========================================================================
-    
     end_screen = stimuli.TextScreen(
         "Experiment Complete",
         "Thank you for participating"
@@ -652,8 +643,6 @@ Press SPACE to begin practice."""
     exp.clock.wait(3000)
     
     control.end()
-
-
 # ============================================================================
 # RUN
 # ============================================================================
